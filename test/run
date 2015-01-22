@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd ..
+cat <(find src test/Test -type f -name "*.elm") <(echo test/Test.elm) | entr -dr make test
