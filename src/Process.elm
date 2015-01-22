@@ -23,7 +23,7 @@ process update state =
     case update of
       Add value ->
         { state | result <-
-            Parser.parse value
+            Parser.parseDelim state.delimiter value
               |> Calculator.add
               |> toString }
       ChangeDelimiter delimiter ->
