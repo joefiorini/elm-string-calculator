@@ -14,7 +14,9 @@ delimiterInput =
         []
         [text "Choose Delimiter"]
     , select
-        []
+        [on "change" targetValue
+          (\v -> Signal.send updates (Process.ChangeDelimiter v))
+        ]
         [ option [] [text ","]
         , option [] [text "|"]
         , option [] [text "+"]
@@ -45,12 +47,12 @@ numberOutput result =
       [ text <| "Your result is: " ++ result]
     ]
 
-container value =
+container state =
   main'
     []
     [ delimiterInput
     , numberInput
-    , numberOutput value
+    , numberOutput state.result
     ]
 
 updates : Signal.Channel Process.Update
@@ -59,5 +61,8 @@ updates =
 
 main =
   Signal.map
-    (Process.process container)
-    <| Signal.subscribe updates
+    container
+    <| Signal.foldp
+        Process.process
+        Process.default
+        <| Signal.subscribe updates

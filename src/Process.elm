@@ -5,15 +5,28 @@ import Calculator
 
 type Update =
     Add String
+  | ChangeDelimiter String
   | NoOp
 
-process : (String -> a) -> Update -> a
-process result update =
+type alias State =
+  { delimiter : String
+  , result : String
+  }
+
+default =
+  { delimiter = ","
+  , result = ""
+  }
+
+process : Update -> State -> State
+process update state =
     case update of
       Add value ->
-        Parser.parse value
-          |> Calculator.add
-          |> toString
-          |> result
-      NoOp -> result ""
+        { state | result <-
+            Parser.parse value
+              |> Calculator.add
+              |> toString }
+      ChangeDelimiter delimiter ->
+        { state | delimiter <- delimiter }
+      NoOp -> state
 

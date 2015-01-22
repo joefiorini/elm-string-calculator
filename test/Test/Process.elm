@@ -10,10 +10,16 @@ tests =
   suite "Process"
     [ test "calls container with empty string on NoOp"
         <| assertEqual
-            ""
-            <| process (\v -> v) NoOp
+            default
+            <| process default NoOp
     , test "calculates value on add"
         <| assertEqual
             "3"
-            <| process (\v -> v) (Add "1,2")
+            <| (.result
+                  <| process default (Add "1,2"))
+    , test "updates selected delimiter"
+        <| assertEqual
+            "|"
+            <| (.delimiter
+                <| process default (ChangeDelimiter "|"))
     ]
