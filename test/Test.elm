@@ -10,11 +10,13 @@ import ElmTest.Runner.Console (runDisplay)
 
 import Test.Calculator as Calculator
 import Test.Parser as Parser
+import Test.Process as Process
 
 tests : Test
 tests = suite "TodoTDD Tests"
         [ Calculator.tests
         , Parser.tests
+        , Process.tests
         ]
 
 port requests : Signal Request
