@@ -3,9 +3,29 @@ import Html.Attributes (type')
 import Html.Events (on, targetValue)
 import Text (plainText)
 import Signal
+import Signal ((<~))
 import Process
 
 import Doubler
+
+main =
+  container <~ state
+
+state =
+  Signal.subscribe updates |>
+    Signal.foldp Process.process Process.default
+
+container state =
+  main'
+    []
+    [ delimiterInput
+    , numberInput
+    , numberOutput state.result
+    ]
+
+updates : Signal.Channel Process.Update
+updates =
+  Signal.channel Process.NoOp
 
 delimiterInput =
   section
@@ -46,23 +66,3 @@ numberOutput result =
       []
       [ text <| "Your result is: " ++ result]
     ]
-
-container state =
-  main'
-    []
-    [ delimiterInput
-    , numberInput
-    , numberOutput state.result
-    ]
-
-updates : Signal.Channel Process.Update
-updates =
-  Signal.channel Process.NoOp
-
-main =
-  Signal.map
-    container
-    <| Signal.foldp
-        Process.process
-        Process.default
-        <| Signal.subscribe updates
