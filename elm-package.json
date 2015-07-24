@@ -7,8 +7,6 @@
         "src"
     ],
     "exposed-modules": [
-      "Main",
-      "Doubler"
     ],
     "elm-version": "0.15.1 <= v < 0.16.0",
     "dependencies": {
