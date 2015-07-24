@@ -9,3 +9,4 @@ test-unwrapped.js
 /test/node_modules
 /test/elm-stuff
 /test/supervise
+node_modules

@@ -1,18 +1,15 @@
-import Html (Html, main', section, input, label, text, select, option, p)
-import Html.Attributes (type')
-import Html.Events (on, targetValue)
-import Text (plainText)
+import Html exposing (Html, main', section, input, label, text, select, option, p)
+import Html.Attributes exposing (type')
+import Html.Events exposing (on, targetValue)
 import Signal
-import Signal ((<~))
+import Signal exposing ((<~))
 import Process
-
-import Doubler
 
 main =
   container <~ state
 
 state =
-  Signal.subscribe updates |>
+  updates.signal |>
     Signal.foldp Process.process Process.default
 
 container state =
@@ -23,9 +20,9 @@ container state =
     , numberOutput state.result
     ]
 
-updates : Signal.Channel Process.Update
+updates : Signal.Mailbox Process.Update
 updates =
-  Signal.channel Process.NoOp
+  Signal.mailbox Process.NoOp
 
 delimiterInput =
   section
@@ -35,7 +32,7 @@ delimiterInput =
         [text "Choose Delimiter"]
     , select
         [on "change" targetValue
-          (\v -> Signal.send updates (Process.ChangeDelimiter v))
+          (\v -> Signal.message updates.address (Process.ChangeDelimiter v))
         ]
         [ option [] [text ","]
         , option [] [text "|"]
@@ -54,7 +51,7 @@ numberInput =
     , input
         [ type' "text"
         , on "input" targetValue
-          (\v -> Signal.send updates (Process.Add v))
+          (\v -> Signal.message updates.address (Process.Add v))
         ]
         []
     ]

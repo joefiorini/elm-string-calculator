@@ -32,7 +32,7 @@ $(IMAGES_OUTPUT): $(IMAGES)
 	cp -r $< $@
 
 $(ELM_OUTPUT): $(ELM_SOURCES)
-	elm-make --output $@ $<
+	elm-make $< --output $@
 
 $(CSS_OUTPUT): $(SCSS_SOURCES)
 	sass --scss -t compressed -I bower_components/normalize-scss -I bower_components/bourbon/app/assets/stylesheets src/styles/main.scss build/main.css

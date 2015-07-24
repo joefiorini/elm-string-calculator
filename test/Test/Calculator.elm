@@ -1,9 +1,9 @@
 module Test.Calculator where
 
-import ElmTest.Test (test, Test, suite)
-import ElmTest.Assertion (assert, assertEqual)
+import ElmTest.Test exposing (test, Test, suite)
+import ElmTest.Assertion exposing (assert, assertEqual)
 
-import Test.Helpers (..)
+import Test.Helpers exposing (..)
 import Calculator
 
 tests =

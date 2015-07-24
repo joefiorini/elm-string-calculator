@@ -1,10 +1,10 @@
 module Test.Process where
 
-import ElmTest.Test (test, Test, suite)
-import ElmTest.Assertion (assert, assertEqual)
+import ElmTest.Test exposing (test, Test, suite)
+import ElmTest.Assertion exposing (assert, assertEqual)
 
-import Test.Helpers (..)
-import Process (..)
+import Test.Helpers exposing (..)
+import Process exposing (..)
 
 tests =
   suite "Process"

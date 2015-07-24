@@ -2,11 +2,11 @@ module Main where
 
 import String
 
-import IO.IO (..)
-import IO.Runner (Request, Response, run)
+import IO.IO exposing (..)
+import IO.Runner exposing (Request, Response, run)
 
-import ElmTest.Test (Test, suite)
-import ElmTest.Runner.Console (runDisplay)
+import ElmTest.Test exposing (Test, suite)
+import ElmTest.Runner.Console exposing (runDisplay)
 
 import Test.Calculator as Calculator
 import Test.Parser as Parser
